@@ -1,0 +1,17 @@
+/models
+/.ccls-cache
+*.so
+*.o
+protos/*.pb*
+.vscode
+notes.md
+
+audio
+/french
+
+
+/python_stream/kaldi/__pycache__
+/.mypy_cache
+models.toml
+
+examples/*/model
