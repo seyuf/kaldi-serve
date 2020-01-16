@@ -6,8 +6,8 @@
 # and `path'.
 
 [[model]]
-name = ""
-language_code = ""
+name = "default"
+language_code = "fr-FR"
 path = "/home/app/french/model-fr/"
 # A few optional decoder related parameters. Default value listed in comment at
 # the end. Most of the viterbi params can be tuned to trade-off speed vs
