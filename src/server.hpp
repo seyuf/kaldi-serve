@@ -104,6 +104,7 @@ grpc::Status KaldiServeImpl::Recognize(grpc::ServerContext *const context,
         } else {
             decoder_->decode_wav_audio(input_stream, n_best, k_results_, config.word_level());
         }
+
     } catch (kaldi::KaldiFatalError &e) {
         decoder_queue_map_[model_id]->release(decoder_);
         std::string message = std::string(e.what()) + " :: " + std::string(e.KaldiMessage());
@@ -207,6 +208,11 @@ grpc::Status KaldiServeImpl::StreamingRecognize(grpc::ServerContext *const conte
             } else {
                 decoder_->decode_stream_wav_chunk(feature_pipeline, silence_weighting, decoder, input_stream_chunk);
             }
+
+	    if(config.punctuation()){
+		    break;
+	    }
+
         } catch (kaldi::KaldiFatalError &e) {
             decoder_queue_map_[model_id]->release(decoder_);
             std::string message = std::string(e.what()) + " :: " + std::string(e.KaldiMessage());
