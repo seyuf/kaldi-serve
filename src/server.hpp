@@ -192,6 +192,10 @@ grpc::Status KaldiServeImpl::StreamingRecognize(grpc::ServerContext *const conte
 
     // read chunks until end of stream
     do {
+	if(config.punctuation()){
+          break;
+	}
+
         if (DEBUG) {
             // LOG REQUEST RESOLVE TIME --> START (at the last request since that would be the actual latency)
             start_time = std::chrono::system_clock::now();
@@ -209,10 +213,7 @@ grpc::Status KaldiServeImpl::StreamingRecognize(grpc::ServerContext *const conte
                 decoder_->decode_stream_wav_chunk(feature_pipeline, silence_weighting, decoder, input_stream_chunk);
             }
 
-	    if(config.punctuation()){
-		    break;
-	    }
-
+	   
         } catch (kaldi::KaldiFatalError &e) {
             decoder_queue_map_[model_id]->release(decoder_);
             std::string message = std::string(e.what()) + " :: " + std::string(e.KaldiMessage());
