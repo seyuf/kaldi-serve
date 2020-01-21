@@ -2,19 +2,18 @@ syntax = "proto3";
 package kaldi_serve;
 
 service KaldiServe {
-  // Performs synchronous non-streaming speech recognition;
+  // Performs synchronous non-streaming speech recognition.
   rpc Recognize(RecognizeRequest) returns (RecognizeResponse) {}
 
   // Performs synchronous client-to-server streaming speech recognition: 
   //    receive results after all audio has been streamed and processed.
-  rpc StreamingRecognize(stream StreamingRecognizeRequest) returns (StreamingRecognizeResponse) {}
+  rpc StreamingRecognize(stream RecognizeRequest) returns (RecognizeResponse) {}
+
+  // Performs synchronous bidirectional streaming speech recognition: 
+  //    receive results as the audio is being streamed and processed.
+  rpc BidiStreamingRecognize(stream StreamingRecognizeRequest) returns (stream StreamingRecognizeResponse) {}
 }
 
-message RecognizeRequest {
-  RecognitionConfig config = 1;
-  RecognitionAudio audio = 2;
-  string uuid = 3;
-}
 
 message StreamingRecognizeRequest {
   RecognitionConfig config = 1;
@@ -22,12 +21,18 @@ message StreamingRecognizeRequest {
   string uuid = 3;
 }
 
-
-message RecognizeResponse {
+message StreamingRecognizeResponse {
   repeated SpeechRecognitionResult results = 1;
 }
 
-message StreamingRecognizeResponse {
+
+message RecognizeRequest {
+  RecognitionConfig config = 1;
+  RecognitionAudio audio = 2;
+  string uuid = 3;
+}
+
+message RecognizeResponse {
   repeated SpeechRecognitionResult results = 1;
 }
 
@@ -56,6 +61,7 @@ message RecognitionConfig {
   bool raw = 11;
   int32 data_bytes = 12;
   bool word_level = 13;
+  bool end_of_utterance = 14;
 }
 
 // Either `content` or `uri` must be supplied.
@@ -68,6 +74,7 @@ message RecognitionAudio {
 
 message SpeechRecognitionResult {
   repeated SpeechRecognitionAlternative alternatives = 1;
+  bool is_final = 3;
 }
 
 message SpeechRecognitionAlternative {

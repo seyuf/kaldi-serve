@@ -4,11 +4,15 @@
 
 # Compulsory keys are `name', `language' (both used to identify a loaded model)
 # and `path'.
+[[model]]
+name = "general"
+language_code = "hi"
+path = "./path/to/model/dir"
 
 [[model]]
-name = "default"
-language_code = "fr-FR"
-path = "/home/app/french/model-fr/"
+name = "general"
+language_code = "en"
+path = "./path/to/model/dir"
 # A few optional decoder related parameters. Default value listed in comment at
 # the end. Most of the viterbi params can be tuned to trade-off speed vs
 # accuracy.
