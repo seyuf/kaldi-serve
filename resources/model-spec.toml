@@ -1,18 +1,7 @@
-# This is a sample model specification file which can be loaded in kaldi-serve
-# Here we specify a list of model with extra properties like model name,
-# language code etc.
-
-# Compulsory keys are `name', `language' (both used to identify a loaded model)
-# and `path'.
 [[model]]
-name = "general"
-language_code = "hi"
-path = "./path/to/model/dir"
-
-[[model]]
-name = "general"
-language_code = "en"
-path = "./path/to/model/dir"
+name = "default"
+language_code = "fr-FR"
+path = "/home/app/french/model-fr/"
 # A few optional decoder related parameters. Default value listed in comment at
 # the end. Most of the viterbi params can be tuned to trade-off speed vs
 # accuracy.
@@ -23,32 +12,3 @@ max_active = 3000 # 7000
 lattice_beam = 3.0 # 6.0
 acoustic_scale = 1.0 # 1.0
 frame_subsampling_factor = 3 # 3
-
-# A model `path` looks something like the following (for minimal transcription
-# only use case):
-
-# ├── conf
-# │   ├── ivector_extractor.conf
-# │   ├── mfcc.conf
-# │   ├── online_cmvn.conf
-# │   └── splice.conf
-# ├── final.mdl
-# ├── HCLG.fst
-# ├── ivector_extractor
-# │   ├── final.dubm
-# │   ├── final.ie
-# │   ├── final.mat
-# │   └── global_cmvn.stats
-# ├── word_boundary.int (optional; needed only for word level confidence and timing information)
-# └── words.txt
-
-# The files above have the default kaldi chain model interpretation (with
-# ivector also as an input). A few things to notes:
-# + `final.mdl` contains the neural net and transition model.
-# + `HCLG.fst` is the decoding FST.
-# + `words.txt` is a symbol table mapping decoder output ids to words.
-# + For feature pipeline, mfcc config is picked from`conf/mfcc.conf`.
-# + For ivector, we read the `conf/ivector_extractor.conf` allowing two kinds of
-#   paths for params in ivector config.
-#   - Absolute like /mnt/model/ivector_extractor/final.mat
-#   - Relative to the model-dir, something like ivector_extractor/final.mat
