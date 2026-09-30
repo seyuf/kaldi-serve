@@ -1,5 +1,7 @@
 # Kaldi-Serve
 
+Fork adding bidirectional streaming to kaldi server. Use at your own risk.
+
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/Vernacular-ai/kaldi-serve?style=flat-square) ![GitHub](https://img.shields.io/github/license/Vernacular-ai/kaldi-serve?style=flat-square)
 
 [gRPC](https://grpc.io/) server component for [Kaldi](https://kaldi-asr.org/)
